@@ -1,46 +1,44 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[hyperref]{acl2020}
-\usepackage{times}
-\usepackage{latexsym}
-\renewcommand{\UrlFont}{\ttfamily\small}
-\usepackage{microtype}
-\newcommand\BibTeX{B\textsc{ib}\TeX}
-\usepackage{xcolor}
-\usepackage{graphicx}
-\usepackage{placeins}
+\usepackage{authblk}
 
-\aclfinalcopy % Uncomment this line for the final submission
 \title{Agent Path Planning}
-\author{Noah Gardner \\
-    \texttt{ngardn10@students.kennesaw.edu} \\}
-  \and
-  Mikulas Chalupa\\
-  \texttt{mchalupa@students.kennesaw.edu} \\
-}
-
-  \author{Alan Norkham \\
-  Kennesaw State University \\
-  College of Computing and Software Engineering \\
-  \texttt{anorkham@students.kennesaw.edu} \\}
+\author{Alan Norkham \\
+ \and Noah Gardner \\
+ \and Mikulas Chalupa \\}
+\date{}
 
 \begin{document}
 \maketitle
-\begin{abstract}
-
-\end{abstract}
+% \begin{abstract}
+% \end{abstract}
 
 \section{Introduction}
-proposed study
-path finding
-goals of the project
-why this is important
+The problem of path planning is a difficult problem for mobile robots. A
+practical example can be seen in the robots commonly employed in warehouses:
+they must navigate to pick up goods and move them to certain locations.
+Therefore, the robot needs a method of moving from an initial location in the
+warehouse to a final location repeatedly.
+
+Environmental factors such as collision avoidance and the fastest path taken is
+very important.
 
 \section{Dataset}
 Our dataset will be a custom one, which consists of a 'grid-world' environment.
-It will contain our agent, some obstacles, and a goal.
+It will contain our agent, some obstacles, and a goal. We would like to test
+with different starting and goal locations as well as random initialization of
+obstacles. Obstacles may completely block the agent from moving into the cell
+with the obstacle, or the obstacle could have an increased or decreased cost of
+moving into the cell, for example, a sand pit or road.
 
 \section{Model}
 We would like to apply an RNN or LSTM to this problem. Given the research we
 collected, these models should be appropriate for this kind of problem.
 
+\section{Methodology}
+Our goal for this project will to be to demonstrate a learned agent that can
+pathfind effectively from the starting location to the goal location.
+
+\subsection{Evaluation}
+We will evaluate our learned path-finding algorithm by comparing it to commonly
+used path-finding algorithms such as Dijkstra's algorithm and A* algorithm.
 \end{document}
