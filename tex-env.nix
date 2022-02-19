@@ -2,10 +2,54 @@
 { texlive, extraTexPackages ? { } }:
 (texlive.combine ({
   inherit (texlive) scheme-small;
+  "hyperref" = texlive."hyperref";
+  "etexcmds" = texlive."etexcmds";
+  "ntheorem" = texlive."ntheorem";
+  "cmap" = texlive."cmap";
+  "pdftexcmds" = texlive."pdftexcmds";
+  "textcase" = texlive."textcase";
+  "booktabs" = texlive."booktabs";
+  "intcalc" = texlive."intcalc";
+  "iftex" = texlive."iftex";
+  "trimspaces" = texlive."trimspaces";
+  "etoolbox" = texlive."etoolbox";
+  "ltxcmds" = texlive."ltxcmds";
+  "rerunfilecheck" = texlive."rerunfilecheck";
+  "hycolor" = texlive."hycolor";
   "xcolor" = texlive."xcolor";
-  "times" = texlive."times";
-  "placeins" = texlive."placeins";
+  "stringenc" = texlive."stringenc";
+  "refcount" = texlive."refcount";
+  "xstring" = texlive."xstring";
+  "pdfescape" = texlive."pdfescape";
+  "geometry" = texlive."geometry";
+  "letltxmacro" = texlive."letltxmacro";
+  "uniquecounter" = texlive."uniquecounter";
+  "graphics" = texlive."graphics";
+  "atbegshi" = texlive."atbegshi";
+  "setspace" = texlive."setspace";
   "microtype" = texlive."microtype";
+  "xkeyval" = texlive."xkeyval";
+  "kvoptions" = texlive."kvoptions";
+  "url" = texlive."url";
+  "caption" = texlive."caption";
+  "bitset" = texlive."bitset";
+  "fancyhdr" = texlive."fancyhdr";
+  "float" = texlive."float";
+  "gettitlestring" = texlive."gettitlestring";
+  "environ" = texlive."environ";
+  "hyperxmp" = texlive."hyperxmp";
+  "auxhook" = texlive."auxhook";
+  "ifmtarg" = texlive."ifmtarg";
+  "infwarerr" = texlive."infwarerr";
+  "kvsetkeys" = texlive."kvsetkeys";
+  "kvdefinekeys" = texlive."kvdefinekeys";
+  "minitoc" = texlive."minitoc";
+  "atveryend" = texlive."atveryend";
+  "hopatch" = texlive."hopatch";
+  "comment" = texlive."comment";
+  "everyshi" = texlive."everyshi";
+  "totpages" = texlive."totpages";
+  "ncctools" = texlive."ncctools";
   "preprint" = texlive."preprint";
 
 } // extraTexPackages))

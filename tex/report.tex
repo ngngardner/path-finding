@@ -1,16 +1,61 @@
-\documentclass[11pt,a4paper]{article}
-\usepackage{authblk}
+\documentclass[sigplan,screen]{acmart}
 
-\title{Agent Path Planning}
-\author{Alan Norkham \\
- \and Noah Gardner \\
- \and Mikulas Chalupa \\}
-\date{}
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    \normalfont B\kern-0.5em{\scshape i\kern-0.25em b}\kern-0.8em\TeX}}}
+
+%% Rights management information.  This information is sent to you % when you
+%complete the rights form.  These commands have SAMPLE % values in them; it is
+%your responsibility as an author to replace % the commands and values with
+%those provided to you when you % complete the rights form.
+\setcopyright{acmcopyright}
+\copyrightyear{2018}
+\acmYear{2018} \acmDOI{10.1145/1122445.1122456}
 
 \begin{document}
+\title{Agent Path Planning}
+\author{Noah Gardner}
+\authornote{All authors contributed equally to this research.}
+\email{ngardn10@students.kennesaw.edu}
+\orcid{0000-0001-5900-9841}
+\affiliation{%
+    \institution{College of Computing and Software Engineering }
+    \streetaddress{1100 South Marietta}
+    \city{Marietta}
+    \state{Georgia}
+    \country{USA}
+    \postcode{30060}
+}
+
+\author{Alan Norkham}
+\email{@students.kennesaw.edu}
+\affiliation{%
+    \institution{College of Computing and Software Engineering }
+    \streetaddress{1100 South Marietta}
+    \city{Marietta}
+    \state{Georgia}
+    \country{USA}
+    \postcode{30060}
+}
+
+\author{Mikulas Chalupa}
+\email{@students.kennesaw.edu}
+\affiliation{%
+    \institution{College of Computing and Software Engineering }
+    \streetaddress{1100 South Marietta}
+    \city{Marietta}
+    \state{Georgia}
+    \country{USA}
+    \postcode{30060}
+}
+\renewcommand{\shortauthors}{Gardner et al.}
+
+\begin{abstract}
+\end{abstract}
+\keywords{path finding}
 \maketitle
-% \begin{abstract}
-% \end{abstract}
 
 \section{Introduction}
 The problem of path planning is a difficult problem for mobile robots. A
@@ -41,4 +86,7 @@ pathfind effectively from the starting location to the goal location.
 \subsection{Evaluation}
 We will evaluate our learned path-finding algorithm by comparing it to commonly
 used path-finding algorithms such as Dijkstra's algorithm and A* algorithm.
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{report}
 \end{document}

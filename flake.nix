@@ -22,8 +22,6 @@
                 inherit (pkgs.texlive)
                   latexmk
                   latexindent
-                  helvetic
-                  courier
                   ;
               };
             })
