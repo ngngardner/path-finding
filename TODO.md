@@ -1,5 +1,12 @@
 # Research Project - Custom Path-Finding Agent
 
+## Goals
+
+1. Create custom environment
+2. Define agent behavior
+3. Wrap in Gym.env API
+4. Train model
+
 ## Custom Research Environment
 
 1. Environment size (>16x16)
@@ -17,9 +24,6 @@
 
 1. Obstacles of random sizes
 
-## Goals
+### Notes
 
-1. Create custom environment
-2. Define agent behavior
-3. Wrap in Gym.env API
-4. Train model
+1. Output state will be either centered around agent, or entire environment.
