@@ -9,8 +9,14 @@ python = "^3.9"
 numpy = "1.22.1"
 jupyter = "^1.0.0"
 ipykernel = "^6.9.1"
+beartype = "^0.10.2"
 
 [tool.poetry.dev-dependencies]
+autopep8 = "^1.6.0"
+flake8 = "^4.0.1"
+wemake-python-styleguide = "^0.16.0"
+pyright = "^1.1.227"
+bandit = "1.7.2"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
