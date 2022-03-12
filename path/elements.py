@@ -1,5 +1,8 @@
 """Module for grid elements."""
 
+from beartype import beartype
+
+from path import const
 from path.cell import Cell
 
 
@@ -25,6 +28,7 @@ class Element(object):
         """
         return False
 
+    @beartype
     def move(self, cell: Cell) -> None:
         """Move the element to a new cell.
 
@@ -49,7 +53,8 @@ class Obstacle(Element):
         """Initialize the obstacle."""
         super().__init__(movable=False)
 
-    def __str__(self):
+    @beartype
+    def __str__(self) -> str:
         """Return a string representation of the obstacle.
 
         Returns:
@@ -57,9 +62,19 @@ class Obstacle(Element):
         """
         return '#'
 
+    @beartype
+    def to_float(self) -> float:
+        """Return the element as a float.
+
+        Returns:
+            float: The element as a float.
+        """
+        return const.OBSTACLE_FLOAT
+
 
 class Goal(Element):
     """Goal element class."""
+
     def __init__(self):
         """Initialize the goal."""
         super().__init__(movable=True)
@@ -73,10 +88,20 @@ class Goal(Element):
         """
         return True
 
-    def __str__(self):
+    @beartype
+    def __str__(self) -> str:
         """Return a string representation of the goal.
 
         Returns:
             str: The string representation of the goal.
         """
         return 'G'
+
+    @beartype
+    def to_float(self) -> float:
+        """Return the goal as a float.
+
+        Returns:
+            float: The goal as a float.
+        """
+        return const.GOAL_FLOAT
