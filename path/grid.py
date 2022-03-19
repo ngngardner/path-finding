@@ -66,16 +66,16 @@ class Grid(object):
         )
 
     @beartype
-    def get_random_movable(self) -> tuple:
-        """Get a random movable cell.
+    def get_random_empty(self) -> tuple:
+        """Get a random empty cell.
 
         Returns:
-            tuple: A random movable cell.
+            tuple: A random empty cell.
         """
         while True:
             row, col = self.get_random()
             cell = self.grid[row, col]
-            if cell.movable and not cell.is_goal:
+            if cell.is_empty:
                 return row, col
 
     @beartype
@@ -85,7 +85,7 @@ class Grid(object):
         Args:
             element (Element): The element to place.
         """
-        self.place(element, self.get_random_movable())
+        self.place(element, self.get_random_empty())
 
     def __str__(self):
         """Return a string representation of the grid.

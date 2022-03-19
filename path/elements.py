@@ -28,6 +28,15 @@ class Element(object):
         """
         return False
 
+    @property
+    def move_cost(self) -> float:
+        """Return the cost of moving into the cell.
+
+        Returns:
+            float: The cost of moving into the cell.
+        """
+        return const.DEFAULT_COST
+
     @beartype
     def move(self, cell: Cell) -> None:
         """Move the element to a new cell.
@@ -70,6 +79,46 @@ class Obstacle(Element):
             float: The element as a float.
         """
         return const.OBSTACLE_FLOAT
+
+
+class Trap(Element):
+    """Trap element class."""
+
+    def __init__(self, cost: float = 2):
+        """Initialize the trap.
+
+        Args:
+            cost (float): The cost of moving into the trap.
+        """
+        super().__init__(movable=True)
+        self.cost = cost
+
+    @property
+    def move_cost(self) -> float:
+        """Return the cost of moving into the cell.
+
+        Returns:
+            float: The cost of moving into the cell.
+        """
+        return self.cost
+
+    @beartype
+    def __str__(self) -> str:
+        """Return a string representation of the trap.
+
+        Returns:
+            str: The string representation of the trap.
+        """
+        return '%'
+
+    @beartype
+    def to_float(self) -> float:
+        """Return the element as a float.
+
+        Returns:
+            float: The element as a float.
+        """
+        return const.TRAP_FLOAT
 
 
 class Goal(Element):

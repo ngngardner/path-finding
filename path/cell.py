@@ -2,6 +2,10 @@
 
 from beartype import beartype
 
+from path import const
+
+HIGH_COST = 9999
+
 
 class Cell(object):
     """Cell holds the elements that are in the same location in the grid."""
@@ -43,6 +47,21 @@ class Cell(object):
         return True
 
     @property
+    def move_cost(self) -> float:
+        """Return the cost of moving into the cell.
+
+        Returns:
+            float: The cost of moving into the cell.
+        """
+        if not self.movable:
+            return HIGH_COST
+
+        for member in self.members:
+            if member.move_cost != const.DEFAULT_COST:
+                return member.move_cost
+        return const.DEFAULT_COST
+
+    @property
     def is_goal(self):
         """Return if the cell is a goal.
 
@@ -53,6 +72,15 @@ class Cell(object):
             if member.is_goal:
                 return True
         return False
+
+    @property
+    def is_empty(self):
+        """Return if the cell is empty.
+
+        Returns:
+            bool: True if the cell is empty, False otherwise.
+        """
+        return len(self.members) == 0
 
     @beartype
     def pop(self, element: object) -> object:

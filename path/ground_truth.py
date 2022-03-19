@@ -1,14 +1,12 @@
 """"Find the ground truth experiences for the generated environment."""
 
-from copy import deepcopy
-
 import numpy as np
 from beartype import beartype
-from scipy.sparse.csgraph import dijkstra
 
 from path import const
-from path.environment import Environment
 from path.grid import Grid
+
+UNREACHABLE = -9999
 
 
 @beartype
@@ -26,7 +24,22 @@ def loc_to_idx(row: int, col: int, cols: int) -> int:
     return row * cols + col
 
 
-def get_path(predecessors, start, goal):
+def get_path(predecessors: np.ndarray, start: int, goal: int) -> list:
+    """"Get the path from the predecessors array.
+
+    Args:
+        predecessors (np.ndarray): The predecessors array.
+        start (int): The start index.
+        goal (int): The goal index.
+
+    Returns:
+        list: The path.
+
+    Raises:
+        ValueError: If the goal is unreachable.
+    """
+    if predecessors[goal] == UNREACHABLE:
+        raise ValueError('No path to goal.')
     res = []
     current = goal
     while current != start:
@@ -58,53 +71,6 @@ def path_to_actions(path, cols: int):
 
 
 @beartype
-def get_ground_truth(env: Environment):
-    """Return the ground truth of the environment as a series of experiences.
-
-    Args:
-        env (Environment): The environment.
-
-    Returns:
-        list: The ground truth of the environment as a series of experiences.
-    """
-    experiences = []
-    temp = deepcopy(env)
-    cols = temp.gr.size[1]
-
-    # convert grid to graph
-    adj_matrix = adjacency_matrix(temp.gr)
-
-    # run dijkstras's algorithm until shortest path is found
-    start = temp.agent.cell.location
-    goal = temp.goal.cell.location
-
-    # convert start and goal cells to adj matrix indices
-    start_idx = loc_to_idx(start[0], start[1], cols)
-    goal_idx = loc_to_idx(goal[0], goal[1], cols)
-
-    # run dijkstras's algorithm
-    _, predecessors = dijkstra(
-        adj_matrix,
-        directed=False,
-        indices=start_idx,
-        return_predecessors=True,
-    )
-
-    # get shortest path as a series of correct actions
-    path = get_path(predecessors, start_idx, goal_idx)
-    actions = path_to_actions(path, cols)
-    print([const.ACTION_MAP_REV[action] for action in actions])
-
-    # run actions on environment
-    for action in actions:
-        experiences.append(temp.step(action))
-        temp.render()
-        print('====================')
-
-    return experiences
-
-
-@beartype
 def adjacency_matrix(grid: Grid) -> np.ndarray:
     """Return the adjacency matrix of the grid.
 
@@ -123,18 +89,22 @@ def adjacency_matrix(grid: Grid) -> np.ndarray:
                 # up
                 if row > 0 and grid[row - 1, col].movable:
                     cell_idx = loc_to_idx(row - 1, col, cols)
-                    matrix[current_cell_idx, cell_idx] = 1
+                    cost = grid[row - 1, col].move_cost
+                    matrix[current_cell_idx, cell_idx] = cost
                 # down
                 if row < rows and grid[row + 1, col].movable:
                     cell_idx = loc_to_idx(row + 1, col, cols)
-                    matrix[current_cell_idx, cell_idx] = 1
+                    cost = grid[row + 1, col].move_cost
+                    matrix[current_cell_idx, cell_idx] = cost
                 # left
                 if col > 0 and grid[row, col - 1].movable:
                     cell_idx = loc_to_idx(row, col - 1, cols)
-                    matrix[current_cell_idx, cell_idx] = 1
+                    cost = grid[row, col - 1].move_cost
+                    matrix[current_cell_idx, cell_idx] = cost
                 # right
                 if col < cols and grid[row, col + 1].movable:
                     cell_idx = loc_to_idx(row, col + 1, cols)
-                    matrix[current_cell_idx, cell_idx] = 1
+                    cost = grid[row, col + 1].move_cost
+                    matrix[current_cell_idx, cell_idx] = cost
 
     return matrix

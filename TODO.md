@@ -9,21 +9,31 @@
 
 ## Custom Research Environment
 
-1. Environment size (>16x16)
-2. Fixed generation
-3. Random generation
-   a. Obstacles (blobs)
-   b. Traps (slows down agent)
-4. Fixed and Random (compare)
-   a. Starting location
-   b. Goal location
-5. Way to ensure that a path exists
-6. Orthogonal movement
+### Done
+
+- [x] Environment size (>16x16)
+- [x] Orthogonal movement
+- [x] Fixed and Random (compare)
+      a. Starting location
+      b. Goal location
+- [x] Way to ensure that a path exists
+- [x] Random generation
+      a. Obstacles
+      b. Traps (slows down agent)
+
+### Todo
+
+1. Agent no longer takes lowest cost path with traps.
 
 ### Stretch
 
-1. Obstacles of random sizes
+1. Obstacles of random sizes (blobs)
 
 ### Notes
 
 1. Output state will be either centered around agent, or entire environment.
+2. Can experiment and compare fixed and random starting and goal locations
+
+### Challenges
+1. Agent no longer takes lowest cost path with traps.
+2. We tried to implement djikstra's.
