@@ -16,7 +16,7 @@ from path.ground_truth import adjacency_matrix, get_path, loc_to_idx, path_to_ac
 class Environment(gym.Env):
     """OpenAI Gym environment for pathfinding."""
 
-    def __init__(self, size: tuple):
+    def __init__(self, size: tuple = (8, 8)):
         """Initialize the environment.
 
         Args:
@@ -24,6 +24,7 @@ class Environment(gym.Env):
         """
         self.rows = size[0]
         self.cols = size[1]
+        self.ground_truth = None
 
         # action space of 4
         self.action_space = gym.spaces.Discrete(4)
@@ -117,7 +118,7 @@ class Environment(gym.Env):
 
         # regenerate if no path exists
         try:
-            get_ground_truth(self, render=False)
+            self.ground_truth = get_ground_truth(self, render=False)
         except ValueError as err:
             print(err)
             self.reset()
@@ -174,7 +175,13 @@ def get_ground_truth(env: Environment, render: bool = True):
 
     # run actions on environment
     for action in actions:
-        experiences.append(temp.step(action))
+        res = temp.step(action)
+        experiences.append({
+            'action': action,
+            'state': res[0],
+            'reward': res[1],
+            'done': res[2],
+        })
 
         if render:
             temp.render()
