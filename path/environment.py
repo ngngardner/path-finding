@@ -34,7 +34,7 @@ class Environment(gym.Env):
             shape=(self.rows, self.cols),
             dtype=np.float32,
         )
-        self.reward_range = (-1, 1)
+        self.reward_range = (-10, 10)
 
         self.gr = Grid((self.rows, self.cols))
 
@@ -54,6 +54,9 @@ class Environment(gym.Env):
         done = False
         reward = 0
         agent_row, agent_col = self.agent.cell.location
+
+        if action not in range(4):
+            raise ValueError('Invalid action {}'.format(action))
 
         # move up
         if action == 0:
@@ -79,8 +82,10 @@ class Environment(gym.Env):
         # check if agent is at goal
         if self.agent.cell.is_goal:
             done = True
-            reward = 1
+            reward = 10
         if self.agent.cell == prev_cell:
+            reward = -10
+        else:
             reward = -1
 
         return self.gr.as_float(), reward, done, {}
@@ -102,18 +107,18 @@ class Environment(gym.Env):
             self.gr.place(Obstacle(), (self.rows - 1, col))
 
         # place random obstacles
-        for _ in range(3):
-            self.gr.place_random(Obstacle())
+        # for _ in range(3):
+        #     self.gr.place_random(Obstacle())
 
         # place random traps
-        for _ in range(20):
-            self.gr.place_random(Trap())
+        # for _ in range(20):
+        #     self.gr.place_random(Trap())
 
         self.goal = Goal()
         self.agent = Agent()
 
         # goal should be placed first
-        self.gr.place_random(self.goal)
+        self.gr.place(self.goal, (self.rows - 2, self.cols - 2))
         self.gr.place_random(self.agent)
 
         # regenerate if no path exists

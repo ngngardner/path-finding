@@ -21,7 +21,7 @@ def main():
 
     # bootstrap agent
     # get ground truth experiences
-    for boot_ep in range(100):
+    for boot_ep in range(500):
         print('Bootstrapping episode {}'.format(boot_ep))
         env = Environment()
         env.reset()
@@ -54,10 +54,18 @@ def main():
         agent=agent,
         environment=environment,
     )
-    runner.run(num_episodes=10)
+    runner.run(num_episodes=100, evaluation=True)
 
     # evaluation
-    print(runner.run(num_episodes=10, evaluation=True))
+    steps = runner.evaluation_timesteps
+    rewards = runner.evaluation_returns
+
+    print('Average steps taken: {}'.format(sum(steps) / len(steps)))
+    print('Average reward: {}'.format(sum(rewards) / len(rewards)))
+
+    # render
+    environment.visualize = True
+    runner.run(num_episodes=1, evaluation=True)
 
     # Close agent and environment
     agent.close()
