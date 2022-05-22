@@ -9,22 +9,34 @@
 \usepackage{textcomp}
 \usepackage{xcolor}
 \usepackage{hyperref}
+\usepackage{placeins}
 % \usepackage{orcidlink}
-\hypersetup{ colorlinks, linkcolor={red!50!black}, citecolor={blue!50!black},
-    urlcolor={blue!80!black} } \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em
-    b}\kern-.08em T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+% \hypersetup{ colorlinks, linkcolor={red!50!black}, citecolor={blue!50!black},
+%     urlcolor={blue!80!black} } \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em
+%     b}\kern-.08em T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
 
-\title{Reinforcement Learning Agent Path Planning with Expert Demonstration}
+\title{Reinforcement Learning Agent for Path Planning with Expert Demonstration}
 
-% \author{ \IEEEauthorblockN{ Alan Norkham, Mikalus Chalupa, Noah Gardner %
-%     \orcidlink{0000-0001-5900-9841}
-%     }
-%     \IEEEauthorblockA{
-%         \textit{Kennesaw State University}\\
-%         Marietta GA, USA \\
-%         \{anorkham, mchalupa, ngardn10\}@students.kennesaw.edu}
-% }
+\author{%
+    \IEEEauthorblockN{
+        Alan Norkham,
+        Mikalus Chalupa,
+        Noah Gardner,
+        Md Abdullah Al Hafiz Khan,
+        Xinyue Zhang,
+        and Chih-Cheng Hung
+        % \orcidlink{0000-0001-5900-9841}
+    }
+
+    \IEEEauthorblockA{
+        College of Computing and Software Engineering \\
+        \textit{Kennesaw State University}\\
+        Marietta GA, USA \\
+        \{anorkham, mchalupa, ngardn10\}@students.kennesaw.edu, \\
+        \{mkhan74, xzhang48, chung1\}@kennesaw.edu
+    }
+}
 
 \maketitle
 \begin{abstract}
@@ -71,18 +83,19 @@ environments, and finally, it must minimize complexity, storage, and computation
 The need for path planning is derived from the increasing automation of
 navigation. The autonomous agent needs to be able to plan a path based on the
 limited amount of information given. This problem is explored by Nair et al. who
-use an LSTM to guide an agent through a simulated environment
-\cite{nair_robotic_2020}. Yuan et al. also explore the problem, but with a novel
-Gated Recurrent Unit-Recurrent Neural Network, and a more complex simulation
-\cite{yuan_novel_2019}.
+use an \textit{long short-term memory} (LSTM) to guide an agent through a
+simulated environment \cite{nair_robotic_2020}. Yuan et al. also explore the
+problem, but with a novel Gated Recurrent Unit-Recurrent Neural Network, and a
+more complex simulation \cite{yuan_novel_2019}.
 
-A* is considered the most mature technology for path finding.  It implements
-graph traversal, path finding, and compares the movement cost against the
-estimated movement cost.  Dijkstra's algorithm is the best first search
-algorithm and is an extension of A* that also attempts to find the shortest path
-between two nodes.  With the advancement of Multi Layered Perceptions (MLP),
-methods that are more efficient have been found. Nair et al. has shown that LSTM
-is superior to the A* algorithm \cite{nair_robotic_2020}.
+A* algorithm is considered a mature technology for path finding
+\cite{hart_formal_1968}. It implements graph traversal, path finding, and
+compares the movement cost against the estimated movement cost. Dijkstra's
+algorithm is a best first search algorithm and is an extension of A* that also
+attempts to find the shortest path between two nodes. With the advancement of
+\textit{multi-layered perceptrons} (MLP), methods that are more efficient have
+been found. Nair et al. has shown that LSTM is superior to the A* algorithm
+\cite{nair_robotic_2020}.
 
 When reviewing previous work, it is proven that MLP performs well over
 traditional techniques and to achieve our criteria requirements performance is a
@@ -92,14 +105,23 @@ LSTM and achieved higher learning and generalized abilities
 an efficient tool for offline path planning applications \cite{khan_using_2017}.
 The implementation of LSTM by Guo et al. increases efficiency, achieve shorter
 paths, while avoiding obstacles and adapting to general environments
-\cite{guo_fusion_2021}. The above papers reinforce the idea that implementing
-LSTM is promising to achieve our criteria.
+\cite{guo_fusion_2021}. Siddarth et al. propose a deep learning path planning
+algorithm trained with generated paths from the A* algorithm using models such
+as CNN, LSTM, and a CNN-LSTM hybrid model \cite{siddarth_path_2021}.
+
+There are also some research in dynamic reinforcement learning environments with
+continuous action spaces. Li et al. propose a \textit{deep deterministic policy
+    gradient} (DDPG) based algorithm for robotic path planning in a dynamic
+environment \cite{li_research_2021}. DDPG has some drawbacks such as slow
+convergence, so the authors in \cite{li_research_2021} improve the algorithm by
+adding a curiosity algorithm which applies attention to improve exploration
+\cite{reizinger_attention_2020}.
 
 Another consideration is the novelty of the type of project being worked on. The
 surveys reviewed suggest that most works focus on static and real-time
-environment where the dynamic environment is the minority.  Implementation of
-multiagents in real-time and dynamic environments are also limited.  And though
-our approach implements a single agent, the aspect of obstacle avoidance can be
+environment where the dynamic environment is the minority. Implementation of
+multiagents in real-time and dynamic environments are also limited. Though our
+approach implements a single agent, the aspect of obstacle avoidance can be
 applied to our project. Through the above works, we have identified
 opportunities to provide scientific benefit to path finding in dynamic
 environments \cite{abd_algfoor_comprehensive_2015}.
@@ -108,12 +130,12 @@ Reinforcement Learning is a promising technique, especially when coupled with
 LSTM. Kyaw et al. has shown that \textit{reinforcement learning} (RL) is a
 simplistic implementation of the agent maximizing the expected reward objective
 and exploring multiple routes \cite{kyaw_coverage_2020}. Not only is LSTM highly
-effective with RL, but more recent papers have found that roping in RL and
-Expert Demonstration via Deep Q learning, provides decreased training speed and
+effective with RL, but more recent papers have found that applying RL and Expert
+Demonstration with Deep Q-learning, provides decreased training speed and
 increased performance in navigating safely and time-efficiently
-\cite{liu_improved_2021}.  Other studies that have compared the use of Q
-learning and showed that it outperformed other similar algorithms in the context
-of games \cite{hester_deep_2017}.
+\cite{liu_improved_2021}. Other studies that have compared the use of
+Q-learning and showed that it outperformed other similar algorithms in the
+context of games \cite{hester_deep_2017}.
 
 \section{Methodology}
 
@@ -146,20 +168,29 @@ has 20 steps to make its moves. This number of steps was selected to minimize
 the training time spent with the agent attempting to move into a wall or
 otherwise not exploring the environment in an attempt to reach the goal.
 
-When DQN model is first initialized and training is started, it will spend large
-number of rounds exploring the environment with no concept of the goal. Using
-expert demonstration, the model can be shown the desired behavior and receive
-some pretrained weights this way. For this purpose, Dijkstra's pathfinding
-algorithm can be run before starting a training session to gather moves and
-experiences for the model. By running Dijkstra's algorithm on a generated
-environment, we can obtain a series of optimal actions to reach the goal in the
-shortest number of steps. Then, we can apply these actions to the environment to
-receive a set of experiences to demonstrate to the agent. When expert
-demonstration was used on the fixed-position agent and goal scenario, the model
-was able to converge and achieve optimal path, while the no expert demonstration
-experiment did not. Using expert demonstration can significantly cut down on
-training time and increasing expert demonstration rounds will decrease training
-time accordingly.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{assets/expertdemonstration.png}
+    \caption{Plot for reward recieved by agent after 1000 episodes.
+        We show the agent's performance both with and without expert demonstration.
+        This experiment is run with fixed-position agent and goal position.}
+    \label{fig:expertdemonstration}
+\end{figure}
+
+When \textit{deep q-network} (DQN) model is first initialized and training is
+started, it will spend large number of rounds exploring the environment with no
+concept of the goal. Using expert demonstration, the model can be shown the
+desired behavior and receive some pretrained weights this way. For this purpose,
+we propose running Dijkstra's pathfinding algorithm before starting a training
+session to gather moves and experiences for the model. By running Dijkstra's
+algorithm on a generated environment, we can obtain a series of optimal actions
+to reach the goal in the shortest number of steps. Then, we can apply these
+actions to the environment to receive a set of experiences to demonstrate to the
+agent. When expert demonstration was used on the fixed-position agent and goal
+scenario, the model was able to converge and achieve optimal path, while the no
+expert demonstration experiment did not. Using expert demonstration can
+significantly cut down on training time and increasing expert demonstration
+rounds will decrease training time accordingly.
 
 Appropriate reward structure is key to a successful reinforcement training
 model. Over the course of a training episode, the agent will accumulate rewards
@@ -172,21 +203,13 @@ teach the agent to only move into free tiles. The penalty is further multiplied
 by the time-step. This means that the longer the agent takes to find the goal
 tile, the more severe the penalty is.
 
+\FloatBarrier
 \section{Experimental Results}
 Three experiments were run, an environment with fixed-position agent and goal
 position, an environment with fixed goal position and random agent position, and
 an environment with fixed goal position, random agent position, and three
 randomly placed obstacles. Additionally, the environment was limited to an 8x8
 grid with a wall of obstacles around the edge of the environment.
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.5\textwidth]{assets/expertdemonstration.png}
-    \caption{Plot for reward recieved by agent after 1000 episodes.
-        We show the agent's performance both with and without expert demonstration.
-        This experiment is run with fixed-position agent and goal position.}
-    \label{fig:expertdemonstration}
-\end{figure}
 
 The simplest environment with fixed-position agent and goal position was run in
 two configurations - with expert demonstration and without expert demonstration.
@@ -249,6 +272,23 @@ past this local minima behavior.
     \label{fig:randomstartrandomobs200kep}
 \end{figure}
 
+There are some drawbacks to our approach. The first drawback is that the
+randomly initialized environment is complex but has a small state space.
+Additionally, we use float representation of the different objects in the
+environment which has a smaller observation dimensionality than standard color
+representation for 2-d reinforcement learning environments. A higher dimensional
+state space may be desirable for an agent to learn to navigate the environment.
+The second drawback is that the action space is discrete and limited to four
+actions. A robot with a continuous action space would be a more appropriate
+model in a live environment. The third drawback is that the expert demonstration
+with Dijkstra's algorithm always takes the correct action. Therefore, the agent
+may have trouble learning the incorrect actions, which are just as important for
+the agent to judge the value of each action. Additionally, Dijkstra's algorithm
+is computationally expensive in larger environments.
+
+
+
+\FloatBarrier
 \section{Conclusion}
 In conclusion, we presented a custom environment and applied a DQN agent to
 learn a policy to complete the task. We used expert demonstration with
